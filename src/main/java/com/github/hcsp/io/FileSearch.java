@@ -16,8 +16,8 @@ public class FileSearch {
 //            throw new IllegalArgumentException();
 //        }
         AtomicInteger myIndex = new AtomicInteger(0);
+        Stream<String> lines = null;
         try {
-            Stream<String> lines = null;
             lines = Files.lines(target.toPath());
 //            lines.forEach(System.out::println);
             Optional<Integer> integerStream = lines
@@ -34,6 +34,10 @@ public class FileSearch {
         } catch (IOException e) {
 //            throw new RuntimeException(e);
             throw new IllegalArgumentException();
+        } finally {
+            if (lines != null) {
+                lines.close();
+            }
         }
 
 //        return 0;
